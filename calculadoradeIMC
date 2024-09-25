@@ -1,0 +1,39 @@
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        calculateButton.setOnClickListener { calculateIMC() }
+    }
+
+    private fun calculateIMC() {
+        val heightText = heightInput.text.toString()
+        val weightText = weightInput.text.toString()
+
+        if (heightText.isNotEmpty() && weightText.isNotEmpty()) {
+            val height = heightText.toDouble()
+            val weight = weightText.toDouble()
+            val imc = weight / (height * height)
+
+            val category = getCategory(imc)
+            resultTextView.text = String.format("IMC: %.2f\nCategoria: %s", imc, category)
+        } else {
+            resultTextView.text = "Por favor, preencha ambos os campos."
+        }
+    }
+
+    private fun getCategory(imc: Double): String {
+        return when {
+            imc < 18.5 -> "Abaixo do peso"
+            imc < 24.9 -> "Peso normal"
+            imc < 29.9 -> "Sobrepeso"
+            else -> "Obesidade"
+        }
+    }
+}
