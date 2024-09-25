@@ -1,0 +1,39 @@
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.random.Random
+
+class MainActivity : AppCompatActivity() {
+
+    private var randomNumber = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        generateRandomNumber()
+
+        checkButton.setOnClickListener { checkGuess() }
+    }
+
+    private fun generateRandomNumber() {
+        randomNumber = Random.nextInt(1, 101) // Gera um número entre 1 e 100
+    }
+
+    private fun checkGuess() {
+        val guessText = guessInput.text.toString()
+
+        if (guessText.isNotEmpty()) {
+            val guess = guessText.toInt()
+
+            when {
+                guess < randomNumber -> resultTextView.text = "Seu palpite é muito baixo."
+                guess > randomNumber -> resultTextView.text = "Seu palpite é muito alto."
+                else -> resultTextView.text = "Parabéns! Você acertou."
+            }
+        } else {
+            resultTextView.text = "Por favor, insira um palpite."
+        }
+    }
+}
