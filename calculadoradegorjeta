@@ -1,0 +1,30 @@
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        calculateTipButton.setOnClickListener { calculateTip() }
+    }
+
+    private fun calculateTip() {
+        val billText = billAmountInput.text.toString()
+        val tipText = tipPercentageInput.text.toString()
+
+        if (billText.isNotEmpty() && tipText.isNotEmpty()) {
+            val billAmount = billText.toDouble()
+            val tipPercentage = tipText.toDouble()
+            val tipAmount = billAmount * (tipPercentage / 100)
+            val totalAmount = billAmount + tipAmount
+
+            resultTextView.text = String.format("Gorjeta: %.2f\nTotal: %.2f", tipAmount, totalAmount)
+        } else {
+            resultTextView.text = "Por favor, preencha ambos os campos."
+        }
+    }
+}
