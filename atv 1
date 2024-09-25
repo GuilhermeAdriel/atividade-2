@@ -1,0 +1,31 @@
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        checkAgeButton.setOnClickListener {
+            checkAge()
+        }
+    }
+
+    private fun checkAge() {
+        val ageText = ageInput.text.toString()
+        if (ageText.isNotEmpty()) {
+            val age = ageText.toInt()
+            val message = when {
+                age < 18 -> "Você é menor de idade."
+                age in 18..60 -> "Você está na meia idade."
+                else -> "Você é idoso."
+            }
+            ageMessage.text = message
+        } else {
+            ageMessage.text = "Por favor, insira sua idade."
+        }
+    }
+}
