@@ -1,0 +1,37 @@
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        convertButton.setOnClickListener { convertTemperature() }
+    }
+
+    private fun convertTemperature() {
+        val tempText = temperatureInput.text.toString()
+
+        if (tempText.isNotEmpty()) {
+            val temperature = tempText.toDouble()
+            val selectedId = conversionGroup.checkedRadioButtonId
+
+            when (selectedId) {
+                R.id.celsiusToFahrenheit -> {
+                    val fahrenheit = (temperature * 9 / 5) + 32
+                    resultTextView.text = String.format("Resultado: %.2f °F", fahrenheit)
+                }
+                R.id.fahrenheitToCelsius -> {
+                    val celsius = (temperature - 32) * 5 / 9
+                    resultTextView.text = String.format("Resultado: %.2f °C", celsius)
+                }
+                else -> resultTextView.text = "Por favor, selecione uma conversão."
+            }
+        } else {
+            resultTextView.text = "Por favor, insira uma temperatura."
+        }
+    }
+}
