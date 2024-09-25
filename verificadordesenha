@@ -1,0 +1,25 @@
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    private val correctPassword = "1234" // Senha fixa
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        checkPasswordButton.setOnClickListener { checkPassword() }
+    }
+
+    private fun checkPassword() {
+        val enteredPassword = passwordInput.text.toString()
+        resultTextView.text = if (enteredPassword == correctPassword) {
+            "Senha correta"
+        } else {
+            "Senha incorreta"
+        }
+    }
+}
