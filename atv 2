@@ -1,0 +1,41 @@
+import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_main.*
+
+class MainActivity : AppCompatActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        addButton.setOnClickListener { performAddition() }
+        subtractButton.setOnClickListener { performSubtraction() }
+    }
+
+    private fun performAddition() {
+        val num1Text = number1Input.text.toString()
+        val num2Text = number2Input.text.toString()
+        if (num1Text.isNotEmpty() && num2Text.isNotEmpty()) {
+            val num1 = num1Text.toDouble()
+            val num2 = num2Text.toDouble()
+            val result = num1 + num2
+            resultTextView.text = "Resultado: $result"
+        } else {
+            resultTextView.text = "Por favor, insira ambos os números."
+        }
+    }
+
+    private fun performSubtraction() {
+        val num1Text = number1Input.text.toString()
+        val num2Text = number2Input.text.toString()
+        if (num1Text.isNotEmpty() && num2Text.isNotEmpty()) {
+            val num1 = num1Text.toDouble()
+            val num2 = num2Text.toDouble()
+            val result = num1 - num2
+            resultTextView.text = "Resultado: $result"
+        } else {
+            resultTextView.text = "Por favor, insira ambos os números."
+        }
+    }
+}
